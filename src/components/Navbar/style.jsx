@@ -3,11 +3,13 @@ import styled from "styled-components";
 import colors from "../../constants/colors";
 
 export const Nav = styled.nav`
-  height: 100%;
+  height: 80px;
+  width: 100%;
 `;
 
 export const NavList = styled.ul`
   display: flex;
+  padding: 0;
   list-style: none;
   height: 100%;
   margin: 0;
@@ -15,7 +17,7 @@ export const NavList = styled.ul`
 
 export const NavItem = styled.li`
   height: 100%;
-  width: 120px;
+  flex: 1;
   text-align: center;
 `;
 
