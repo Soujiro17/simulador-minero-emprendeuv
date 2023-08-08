@@ -77,8 +77,17 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
               defaultValue={1}
               type="number"
               id="camiones"
-              width="100%"
+              width="80%"
             />
+            <AddButton
+              type="button"
+              className="limpiar"
+              onClick={() => {
+                setValue("camiones", 0);
+              }}
+            >
+              Limpiar
+            </AddButton>
           </FormGroup>
           {errors.camiones && <ErrorText>{errors.camiones?.message}</ErrorText>}
         </FormGroup>
@@ -119,19 +128,6 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
         <FormGroup>
           <Label htmlFor="stock_piles">Stock Piles</Label>
           <FormGroup display="flex" justifyContent="center">
-            <RemoveButton
-              type="button"
-              disabled={
-                !getValues("stock_piles") ||
-                Number(getValues("stock_piles")) === 0
-              }
-              onClick={() => {
-                onDeleteNode(`SP${getValues("stock_piles")}`);
-                setValue("stock_piles", Number(getValues("stock_piles")) - 1);
-              }}
-            >
-              -
-            </RemoveButton>
             <FormInput
               hasError={errors.stock_piles}
               {...register("stock_piles")}
@@ -139,7 +135,7 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
               type="number"
               id="stock_piles"
               readOnly
-              width="30%"
+              width="50%"
             />
             <AddButton
               type="button"
@@ -151,8 +147,21 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
                 setValue("stock_piles", Number(getValues("stock_piles")) + 1);
               }}
             >
-              +
+              Agregar stock pile
             </AddButton>
+            <RemoveButton
+              type="button"
+              disabled={
+                !getValues("stock_piles") ||
+                Number(getValues("stock_piles")) === 0
+              }
+              onClick={() => {
+                onDeleteNode(`SP${getValues("stock_piles")}`);
+                setValue("stock_piles", Number(getValues("stock_piles")) - 1);
+              }}
+            >
+              Remover stock pile
+            </RemoveButton>
           </FormGroup>
           {errors.stock_piles && (
             <ErrorText>{errors.stock_piles?.message}</ErrorText>
@@ -161,38 +170,30 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
         <FormGroup>
           <Label htmlFor="simTime">Tiempo (min)</Label>
           <FormGroup display="flex" justifyContent="center">
-            <RemoveButton
-              type="button"
-              disabled={
-                !getValues("simTime") || Number(getValues("simTime")) === 0
-              }
-              onClick={() => {
-                setValue("simTime", Number(getValues("simTime")) - 1);
-              }}
-            >
-              -
-            </RemoveButton>
             <FormInput
               hasError={errors.simTime}
               {...register("simTime")}
               defaultValue={30}
               type="number"
               id="simTime"
-              width="100%"
+              width="80%"
             />
             <AddButton
               type="button"
+              className="limpiar"
               onClick={() => {
-                setValue("simTime", Number(getValues("simTime")) + 1);
+                setValue("simTime", 0);
               }}
             >
-              +
+              Limpiar
             </AddButton>
           </FormGroup>
           {errors.simTime && <ErrorText>{errors.simTime?.message}</ErrorText>}
         </FormGroup>
       </FormGroupContainer>
-      <ButtonSimular type="submit">Simular</ButtonSimular>
+      <ButtonSimular primary type="submit">
+        Simular
+      </ButtonSimular>
     </Form>
   );
 };

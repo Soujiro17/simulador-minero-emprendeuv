@@ -32,18 +32,11 @@ export const FormGroup = styled.div`
 `;
 
 export const ButtonSimular = styled(Button)`
-  border-radius: 50%;
   height: 3rem;
-  background-color: unset;
-  color: ${colors.black[0]};
-  border: 2px solid ${colors.black[0]};
-  width: 70%;
+  border-radius: 0.5rem;
+  width: 100%;
   align-self: center;
   transition: 0.2s all;
-
-  &:hover {
-    background-color: ${colors.black[5]};
-  }
 
   &::before {
     display: none;
@@ -52,7 +45,8 @@ export const ButtonSimular = styled(Button)`
 
 export const AddButton = styled(Button)`
   background-color: ${colors.states.correct};
-  color: ${colors.black[0]};
+  border: 1px solid ${colors.states.correctBorder};
+  color: ${colors.states.correctColor};
   width: 25%;
   height: 3rem;
   border-radius: 5px;
@@ -65,11 +59,18 @@ export const AddButton = styled(Button)`
   &:hover {
     background-color: #6de754;
   }
+
+  &.limpiar {
+    background-color: #fff;
+    color: #000;
+    border: 3px solid ${colors.softPrimary};
+  }
 `;
 
 export const RemoveButton = styled(Button)`
-  background-color: ${colors.states.incorrect};
-  color: ${colors.black[0]};
+  background-color: ${colors.states.warning};
+  border: 1px solid ${colors.states.warningBorder};
+  color: ${colors.states.warningColor};
   width: 25%;
   height: 3rem;
   border-radius: 5px;

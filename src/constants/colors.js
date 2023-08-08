@@ -17,8 +17,12 @@ const colors = {
   states: {
     incorrect: "rgb(228, 44, 44)",
     incorrectBackground: "rgba(228, 44, 44, .6)",
-    correct: "rgb(54, 204, 74)",
-    warning: "#0f0",
+    correct: "#d1e7dd",
+    correctColor: "#0f5132",
+    correctBorder: "#badbcc",
+    warning: "#f8d7da",
+    warningColor: "#842029",
+    warningBorder: "#f5c2c7",
   },
   randomColors: [
     "#36A2EB",

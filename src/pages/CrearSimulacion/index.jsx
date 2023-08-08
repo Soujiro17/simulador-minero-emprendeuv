@@ -58,7 +58,7 @@ function Simulador() {
 
   return (
     <FormContainer>
-      <SimulacionCard height="700px" width="80%">
+      <SimulacionCard height="600px" width="80%">
         <CardHeader>
           <h2>Parámetros de Simulación</h2>
         </CardHeader>
