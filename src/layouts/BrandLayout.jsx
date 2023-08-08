@@ -5,6 +5,16 @@ const MainContainer = styled.section`
   width: 100%;
   height: ${(props) => props.height || "650px"};
   display: flex;
+
+  ${(props) =>
+    props.backgroundImage
+      ? css`
+          background-image: url(${(props) => props.backgroundImage});
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        `
+      : ""}
 `;
 
 const SideWrapper = styled.article`
@@ -36,12 +46,13 @@ function BrandLayout({
   children,
   right = false,
   anotherChildren,
+  backgroundImage = "",
   leftBackgroundImage = "",
   rightBackgroundImage = "",
   height = "",
 }) {
   return (
-    <MainContainer height={height}>
+    <MainContainer backgroundImage={backgroundImage} height={height}>
       <SideWrapper backgroundImage={leftBackgroundImage}>
         <SideDiv>{right ? anotherChildren : children}</SideDiv>
       </SideWrapper>

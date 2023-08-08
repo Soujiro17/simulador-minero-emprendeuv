@@ -3,7 +3,7 @@ import colors from "../../constants/colors";
 import CardContainer from "../../components/Card/style";
 import Img from "../../shared/Img";
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
   height: fit-content;
   width: 100%;
   display: flex;
@@ -13,10 +13,6 @@ export const Container = styled.div`
   position: relative;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  background-image: url("/maderas.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   @media (max-width: 900px) {
     height: 900px;
     padding: 1rem;
@@ -25,16 +21,12 @@ export const Container = styled.div`
 `;
 
 export const SimulacionCard = styled(CardContainer)`
-  color: ${colors.black[0]};
-  background-color: unset;
-  background-image: url("/pizarra.webp");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  padding-top: 2.3rem;
-  padding-left: 2.3rem;
-  padding-right: 2.3rem;
-  padding-bottom: 2.3rem;
+  background-color: #fff;
+  color: ${colors.primary};
+  font-weight: bold;
+  box-shadow: 1px 1px 10px 10px #b5b5b553;
+  overflow: hidden;
+  padding: 0;
   @media (max-width: 900px) {
     width: 100%;
   }
@@ -42,6 +34,7 @@ export const SimulacionCard = styled(CardContainer)`
 
 export const CardHeader = styled.div`
   min-height: 10%;
+  background-color: ${colors.primary};
   height: fit-content;
   width: 100%;
   display: flex;
@@ -53,6 +46,7 @@ export const CardHeader = styled.div`
   border-radius: 0.4rem;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  color: ${colors.black[0]};
 `;
 
 export const Title = styled.h2`
@@ -114,4 +108,9 @@ export const ImgMinero = styled(Img)`
   height: 170px;
   width: 170px;
   transform: translateY(3px);
+`;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
 `;

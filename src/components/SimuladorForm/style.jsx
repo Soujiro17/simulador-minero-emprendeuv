@@ -1,15 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import colors from "../../constants/colors";
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
-
-const roundedFixedSize = css`
-  height: 4rem;
-  width: 4rem;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 1.3rem;
-`;
 
 export const Form = styled.form`
   height: 100%;
@@ -61,8 +53,11 @@ export const ButtonSimular = styled(Button)`
 export const AddButton = styled(Button)`
   background-color: ${colors.states.correct};
   color: ${colors.black[0]};
-  ${roundedFixedSize}
-  transition: .2s all;
+  width: 25%;
+  height: 3rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: 0.2s all;
   &::before {
     display: none;
   }
@@ -75,8 +70,11 @@ export const AddButton = styled(Button)`
 export const RemoveButton = styled(Button)`
   background-color: ${colors.states.incorrect};
   color: ${colors.black[0]};
-  ${roundedFixedSize}
-  transition: .2s all;
+  width: 25%;
+  height: 3rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: 0.2s all;
 
   &::before {
     display: none;
@@ -88,7 +86,9 @@ export const RemoveButton = styled(Button)`
 `;
 
 export const FormInput = styled(Input)`
-  background-color: ${colors.black[0]};
-  ${roundedFixedSize}
+  background-color: ${colors.softPrimary};
+  border: 1px solid ${colors.primary};
+  height: 3rem;
+  border-radius: 5px;
   padding-left: 1rem;
 `;

@@ -1,12 +1,16 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import BrandLayout from "../../layouts/BrandLayout";
 import HeaderLayout from "../../layouts/HeaderLayout";
 import Text from "../../shared/Text";
 import Title from "../../shared/Title";
+import Button from "../../shared/Button";
 
 const Container = styled.div``;
 
 const Inicio = () => {
+  const navigate = useNavigate();
+
   return (
     <HeaderLayout>
       <BrandLayout rightBackgroundImage="/camion-inicio.png">
@@ -18,6 +22,9 @@ const Inicio = () => {
             para el proceso de carguío y transporte en faena minera a rajo
             abierto.
           </Text>
+          <Button onClick={() => navigate("/simulador")}>
+            Ir al simulador
+          </Button>
         </Container>
       </BrandLayout>
       <BrandLayout right leftBackgroundImage="/excavadora-inicio.png">

@@ -1,62 +1,46 @@
+/* eslint-disable jsx-a11y/media-has-caption */
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import BrandLayout from "../../layouts/BrandLayout";
 import HeaderLayout from "../../layouts/HeaderLayout";
-import { Container, StepsContainer, Step, StepImg, StepInfo } from "./style";
+import Title from "../../shared/Title";
+import Text from "../../shared/Text";
+import Button from "../../shared/Button";
 
-const Instructivo = () =>
-{
-    return(
-        <HeaderLayout>
-            <Container>
-                <StepsContainer>
-                    <Step>
-                        <StepImg
-                            src="/step1.png"
-                        />
-                        <StepInfo>
-                            <ul>
-                                <li>
-                                    Paso 1: En primera zona rectagular, ingrese cantidad de camiones
-                                </li>
-                                <li>
-                                    Paso 2: En botón verde "Agregar Pala", haga click la cantidad que requiera
-                                </li>
-                                <li>
-                                    Paso 3: En botón verde "Agregar stock pile", haga click la cantidad que requiera
-                                </li>
-                                <li>
-                                    Paso 4: Ingresar tiempo de simulación
-                                </li>
-                            </ul>
-                        </StepInfo>
-                    </Step>
-                    <Step>
-                        <StepImg
-                            src="/step2.png"
-                        />
-                        <StepInfo>
-                            <ul>
-                                <li>
-                                    Ingresado los datos, aparecerán entidades circulares representando palas y pilas a conectar:
-                                </li>
-                                <li>
-                                    Paso 1: Con botón primario del mouse mantenga presionado una pala
-                                </li>
-                                <li>
-                                    Paso 2: A su vez, mantenga presionada tecla 'shift' y desplaze el puntero al stack pile deseado
-                                </li>
-                                <li>
-                                    Paso 3: Repita el procediento con otra pala o la misma, como se figura en panel izquierdo de la imagen
-                                </li>
-                                <li>
-                                    Paso 4: Finalizada su conexión, hacer click en boton 'Simular'
-                                </li>
-                            </ul>
-                        </StepInfo>
-                    </Step>
-                </StepsContainer>
-            </Container>
+const Container = styled.div``;
 
-        </HeaderLayout>
-    )
-}
+const Instructivo = () => {
+  const navigate = useNavigate();
+
+  return (
+    <HeaderLayout>
+      <BrandLayout
+        backgroundImage="/camion-bg.png"
+        anotherChildren={
+          <video
+            autoPlay
+            loop
+            muted
+            style={{ height: "100%", width: "100%", opacity: 0.9 }}
+          >
+            <source src="/animacion-instructivo.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        }
+      >
+        <Container>
+          <Title marginBottom="0">Instructivo</Title>
+          <Text>
+            Para un correcto uso del simulador, visualice este instructivo
+            atentamente.
+          </Text>
+          <Button onClick={() => navigate("/instructivo/video")}>
+            Ir al instructivo
+          </Button>
+        </Container>
+      </BrandLayout>
+    </HeaderLayout>
+  );
+};
 
 export default Instructivo;

@@ -16,7 +16,6 @@ import {
 } from "./style";
 import Label from "../../shared/Label";
 import simuladorSchema from "../../data/schemas";
-import Spinner from "../Spinner";
 import { addSimulacion } from "../../app/api/simulacion";
 
 const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
@@ -50,7 +49,7 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
       return null;
     });
 
-    const finalArray = Object.entries(tempObject).map(([_, value]) => {
+    const finalArray = Object.entries(tempObject).map(([, value]) => {
       return value;
     });
 
@@ -72,17 +71,6 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
         <FormGroup>
           <Label htmlFor="camiones">Camiones</Label>
           <FormGroup display="flex" justifyContent="center">
-            <RemoveButton
-              type="button"
-              disabled={
-                !getValues("camiones") || Number(getValues("camiones")) === 0
-              }
-              onClick={() => {
-                setValue("camiones", Number(getValues("camiones")) - 1);
-              }}
-            >
-              -
-            </RemoveButton>
             <FormInput
               hasError={errors.camiones}
               {...register("camiones")}
@@ -91,30 +79,12 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
               id="camiones"
               width="100%"
             />
-            <AddButton
-              type="button"
-              onClick={() => {
-                setValue("camiones", Number(getValues("camiones")) + 1);
-              }}
-            >
-              +
-            </AddButton>
           </FormGroup>
           {errors.camiones && <ErrorText>{errors.camiones?.message}</ErrorText>}
         </FormGroup>
         <FormGroup>
           <Label htmlFor="palas">Palas</Label>
-          <FormGroup display="flex" justifyContent="center">
-            <RemoveButton
-              type="button"
-              disabled={!getValues("palas") || Number(getValues("palas")) === 0}
-              onClick={() => {
-                onDeleteNode(`P${Number(getValues("palas")) - 1}`);
-                setValue("palas", Number(getValues("palas")) - 1);
-              }}
-            >
-              -
-            </RemoveButton>
+          <FormGroup display="flex" alignItems="center">
             <FormInput
               hasError={errors.palas}
               {...register("palas")}
@@ -122,7 +92,7 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
               type="number"
               id="palas"
               readOnly
-              width="30%"
+              width="50%"
             />
             <AddButton
               type="button"
@@ -131,8 +101,18 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
                 setValue("palas", Number(getValues("palas")) + 1);
               }}
             >
-              +
+              Agregar pala
             </AddButton>
+            <RemoveButton
+              type="button"
+              disabled={!getValues("palas") || Number(getValues("palas")) === 0}
+              onClick={() => {
+                onDeleteNode(`P${Number(getValues("palas")) - 1}`);
+                setValue("palas", Number(getValues("palas")) - 1);
+              }}
+            >
+              Remover pala
+            </RemoveButton>
           </FormGroup>
           {errors.palas && <ErrorText>{errors.palas?.message}</ErrorText>}
         </FormGroup>
