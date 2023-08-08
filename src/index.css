@@ -1,0 +1,20 @@
+html,
+body {
+  margin: 0%;
+  padding: 0%;
+}
+
+@font-face {
+  font-family: Barlow-Regular;
+  src: url("/fonts/Barlow-Regular.otf");
+}
+
+* {
+  font-family: Barlow-Regular;
+  box-sizing: border-box;
+}
+
+.graph,
+.view-wrapper {
+  background-color: unset !important;
+}
