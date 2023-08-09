@@ -14,7 +14,6 @@ import {
 } from "./style";
 import Graph from "../../components/Graph";
 import SimuladorForm from "../../components/SimuladorForm";
-import { CUSTOM_EMPTY_TYPE } from "../../components/Graph/config";
 import BrandLayout from "../../layouts/BrandLayout";
 import Text from "../../shared/Text";
 import Button from "../../shared/Button";
@@ -28,7 +27,7 @@ function Simulador() {
 
   const graphRef = useRef(null);
 
-  const onCreateNode = (title, len) => {
+  const onCreateNode = (title, len, type) => {
     let id;
     const x = 300;
     const y = 300;
@@ -41,7 +40,7 @@ function Simulador() {
     const viewNode = {
       id,
       title: `${title} ${id}`,
-      type: CUSTOM_EMPTY_TYPE,
+      type,
       x,
       y,
     };

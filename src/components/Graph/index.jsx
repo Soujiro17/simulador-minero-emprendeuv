@@ -6,7 +6,7 @@
 /* eslint-disable one-var */
 import React, { forwardRef, useState } from "react";
 import { GraphView } from "react-digraph";
-import nodeConfig, { CUSTOM_EMPTY_TYPE } from "./config";
+import nodeConfig, { EMPTY_EDGE_TYPE } from "./config";
 
 const GraphConfig = nodeConfig;
 
@@ -24,22 +24,10 @@ const Graph = forwardRef(function Graph(
     const newEdge = {
       source: src.id,
       target: tgt.id,
-      type: CUSTOM_EMPTY_TYPE,
+      type: EMPTY_EDGE_TYPE,
     };
 
     setEdges((prev) => [...prev, newEdge]);
-  }
-
-  function onCreateNodeClick(x, y) {
-    const title = "New Node";
-    const viewNode = {
-      id: Date.now(),
-      title,
-      type: CUSTOM_EMPTY_TYPE,
-      x,
-      y,
-    };
-    setNodes((prev) => [...prev, viewNode]);
   }
 
   function onSelectNode(viewNode, event) {
@@ -122,7 +110,7 @@ const Graph = forwardRef(function Graph(
       nodeTypes={NodeTypes}
       nodeSubtypes={NodeSubtypes}
       edgeTypes={EdgeTypes}
-      onCreateNode={(x, y) => onCreateNodeClick(x, y)}
+      // onCreateNode={(x, y) => onCreateNodeClick(x, y)}
       onUpdateNode={(node) => onUpdateNode(node)}
       // onDeleteNode={(viewNode, nodeId, nodeArr) =>
       //   onDeleteNode(viewNode, nodeId, nodeArr)

@@ -17,6 +17,7 @@ import {
 import Label from "../../shared/Label";
 import simuladorSchema from "../../data/schemas";
 import { addSimulacion } from "../../app/api/simulacion";
+import { PALA_TYPE, STOCK_PILE_TYPE } from "../Graph/config";
 
 const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
   const {
@@ -106,7 +107,7 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
             <AddButton
               type="button"
               onClick={() => {
-                onCreateNode("Pala", getValues("palas"));
+                onCreateNode("Pala", getValues("palas"), PALA_TYPE);
                 setValue("palas", Number(getValues("palas")) + 1);
               }}
             >
@@ -143,6 +144,7 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
                 onCreateNode(
                   "Stock Pile",
                   Number(getValues("stock_piles")) + 1,
+                  STOCK_PILE_TYPE,
                 );
                 setValue("stock_piles", Number(getValues("stock_piles")) + 1);
               }}
