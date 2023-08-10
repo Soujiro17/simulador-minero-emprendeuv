@@ -22,6 +22,12 @@ const Button = styled.button`
       ? css`
           background-color: ${colors.accent};
         `
+      : props.primaryBorder
+      ? css`
+          border: 2px solid ${colors.primary};
+          background-color: #fff;
+          color: #000;
+        `
       : css`
           border: 2px solid ${colors.accent};
           background-color: #fff;

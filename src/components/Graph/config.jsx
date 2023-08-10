@@ -12,7 +12,7 @@ export const STOCK_PILE_TYPE = "stockPileNode"; // Empty node type
 
 export const EMPTY_EDGE_TYPE = "emptyEdge";
 
-export const nodeTypes = [PALA_TYPE];
+export const nodeTypes = [PALA_TYPE, STOCK_PILE_TYPE];
 export const edgeTypes = [EMPTY_EDGE_TYPE];
 
 const palaShape = <Pala />;
