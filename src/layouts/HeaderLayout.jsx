@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import colors from "../constants/colors";
+import Footer from "../components/Footer";
 
 const MainContent = styled.main`
   background-color: ${colors.black[0]};
@@ -12,6 +13,7 @@ const HeaderLayout = ({ children }) => {
     <>
       <Header />
       <MainContent>{children}</MainContent>
+      <Footer />
     </>
   );
 };

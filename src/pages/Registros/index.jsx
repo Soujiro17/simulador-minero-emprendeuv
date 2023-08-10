@@ -95,6 +95,57 @@ const Registros = () => {
                       alt="filtro2"
                     />
                   </Button>
+                  <Button
+                    style={{
+                      width: "fit-content",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: ".5rem",
+                    }}
+                    primaryBorder
+                  >
+                    Filtrar por tiempo
+                    <img
+                      src="/filtro2.png"
+                      height={16}
+                      width={16}
+                      alt="filtro2"
+                    />
+                  </Button>
+                  <Button
+                    style={{
+                      width: "fit-content",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: ".5rem",
+                    }}
+                    primaryBorder
+                  >
+                    Filtrar por palas
+                    <img
+                      src="/filtro2.png"
+                      height={16}
+                      width={16}
+                      alt="filtro2"
+                    />
+                  </Button>
+                  <Button
+                    style={{
+                      width: "fit-content",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: ".5rem",
+                    }}
+                    primaryBorder
+                  >
+                    Filtrar por stockpile
+                    <img
+                      src="/filtro2.png"
+                      height={16}
+                      width={16}
+                      alt="filtro2"
+                    />
+                  </Button>
                 </div>
                 <RegistrosContainer>
                   {data?.informes?.length > 0 ? (
