@@ -15,12 +15,20 @@ export const EMPTY_EDGE_TYPE = "emptyEdge";
 export const nodeTypes = [PALA_TYPE, STOCK_PILE_TYPE];
 export const edgeTypes = [EMPTY_EDGE_TYPE];
 
-const palaShape = <Pala />;
-const stockPileShape = <StockPile />;
-
 const emptyEdgeShape = (
   <symbol viewBox="0 0 50 50" id="emptyEdge">
     <circle cx="25" cy="25" r="8" fill="currentColor" />
+  </symbol>
+);
+
+const palaShape = (
+  <symbol viewBox="0 0 100 100" id="palaNode">
+    <rect transform="translate(50) rotate(45)" width="70" height="70" />
+  </symbol>
+);
+const stockPileShape = (
+  <symbol viewBox="0 0 100 100" id="stockPileNode">
+    <circle cx="50" cy="50" r="45" />
   </symbol>
 );
 

@@ -1,8 +1,8 @@
 import React from "react";
 
-function Pala() {
+function Pala({ id = "palaNode" }) {
   return (
-    <symbol viewBox="0 0 722.82 687.45" id="palaNode">
+    <symbol viewBox="0 0 722.82 687.45" id={id}>
       <defs>
         <linearGradient
           xlinkHref="#a"
