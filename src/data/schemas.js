@@ -16,7 +16,7 @@ const simuladorSchema = object({
     .default(0)
     .positive("Stock piles debe ser positivo")
     .required("Stock piles debe tener un valor"),
-  simTime: number()
+  tiempo_simulacion: number()
     .moreThan(30, "El tiempo no puede ser menor a 30 minutos")
     .default(30)
     .min(30)

@@ -19,7 +19,11 @@ import simuladorSchema from "../../data/schemas";
 import { addSimulacion } from "../../app/api/simulacion";
 import { PALA_TYPE, STOCK_PILE_TYPE } from "../Graph/config";
 
-const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
+const SimuladorForm = ({
+  // graphRef,
+  onCreateNode,
+  onDeleteNode,
+}) => {
   const {
     register,
     handleSubmit,
@@ -30,40 +34,38 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
     resolver: yupResolver(simuladorSchema),
   });
 
-  const { mutate } = useMutation(addSimulacion);
+  const { mutateAsync } = useMutation({
+    mutationKey: ["simular"],
+    mutationFn: (values) => addSimulacion({ values }),
+    onError: (error) =>
+      toast.error(error.response?.data?.error || error.message),
+  });
 
-  const onSubmit = (data) => {
-    const { edges } = graphRef.current.props;
+  const onSubmit = async (data) => {
+    // const { edges } = graphRef.current.props;
 
-    const tempObject = {};
+    // const tempObject = {};
 
-    edges.map((edge) => {
-      const edgeIdSource = Number(edge.source.replace("P", ""));
-      const edgeIdTarget = Number(edge.target.replace("SP", ""));
+    // edges.map((edge) => {
+    //   const edgeIdSource = Number(edge.source.replace("P", ""));
+    //   const edgeIdTarget = Number(edge.target.replace("SP", ""));
 
-      if (!tempObject[edgeIdSource]) {
-        tempObject[edgeIdSource] = [];
-      }
+    //   if (!tempObject[edgeIdSource]) {
+    //     tempObject[edgeIdSource] = [];
+    //   }
 
-      tempObject[edgeIdSource].push(edgeIdTarget);
+    //   tempObject[edgeIdSource].push(edgeIdTarget);
 
-      return null;
-    });
+    //   return null;
+    // });
 
-    const finalArray = Object.entries(tempObject).map(([, value]) => {
-      return value;
-    });
+    // const finalArray = Object.entries(tempObject).map(([, value]) => {
+    //   return value;
+    // });
 
-    mutate({
-      values: {
-        ...data,
-        palaToStock: finalArray,
-        simTime: Number(data.simTime) * 60,
-      },
-    });
-    toast.success(
-      "Simulación creada con éxito. Dentro de unos minutos se verá reflejada en los registros.",
-    );
+    await mutateAsync(data);
+
+    toast.success("Simulación creada con éxito");
   };
 
   return (
@@ -170,27 +172,29 @@ const SimuladorForm = ({ graphRef, onCreateNode, onDeleteNode }) => {
           )}
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="simTime">Tiempo (min)</Label>
+          <Label htmlFor="tiempo_simulacion">Tiempo (min)</Label>
           <FormGroup display="flex" justifyContent="center">
             <FormInput
-              hasError={errors.simTime}
-              {...register("simTime")}
+              hasError={errors.tiempo_simulacion}
+              {...register("tiempo_simulacion")}
               defaultValue={30}
               type="number"
-              id="simTime"
+              id="tiempo_simulacion"
               width="80%"
             />
             <AddButton
               type="button"
               className="limpiar"
               onClick={() => {
-                setValue("simTime", 0);
+                setValue("tiempo_simulacion", 0);
               }}
             >
               Limpiar
             </AddButton>
           </FormGroup>
-          {errors.simTime && <ErrorText>{errors.simTime?.message}</ErrorText>}
+          {errors.tiempo_simulacion && (
+            <ErrorText>{errors.tiempo_simulacion?.message}</ErrorText>
+          )}
         </FormGroup>
       </FormGroupContainer>
       <ButtonSimular primary type="submit">
