@@ -71,7 +71,7 @@ export default function StorageProvider({ children }) {
       setRegistros(
         data.simulaciones?.map((simulacion) => ({
           ...simulacion,
-          isLoading: false,
+          isLoading: !simulacion.ready,
           id: uuidv4(),
         })),
       );

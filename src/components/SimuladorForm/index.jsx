@@ -18,6 +18,7 @@ import Label from "../../shared/Label";
 import simuladorSchema from "../../data/schemas";
 import { addSimulacion } from "../../app/api/simulacion";
 import { PALA_TYPE, STOCK_PILE_TYPE } from "../Graph/config";
+import useStorage from "../../hooks/useStorage";
 
 const SimuladorForm = ({
   // graphRef,
@@ -33,6 +34,8 @@ const SimuladorForm = ({
   } = useForm({
     resolver: yupResolver(simuladorSchema),
   });
+
+  const { addRegistro } = useStorage();
 
   const { mutateAsync } = useMutation({
     mutationKey: ["simular"],
@@ -64,6 +67,15 @@ const SimuladorForm = ({
     // });
 
     await mutateAsync(data);
+
+    const parsedData = {
+      palas: data.palas,
+      camiones: data.camiones,
+      tiempoSimulacion: data.tiempo_simulacion,
+      stockPiles: data.stock_piles,
+    };
+
+    addRegistro(parsedData);
 
     toast.success("Simulación creada con éxito");
   };

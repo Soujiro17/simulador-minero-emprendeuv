@@ -143,7 +143,7 @@ const Registros = () => {
                           : -1,
                       )
                       .map((informe) => {
-                        const { parametros, id, isLoading, createdAt } =
+                        const { parametros, id, isLoading, createdAt, ready } =
                           informe;
 
                         return (
@@ -151,6 +151,7 @@ const Registros = () => {
                             key={id}
                             parametros={parametros}
                             isLoading={isLoading}
+                            ready={ready}
                             date={createdAt}
                             id={id}
                             onClick={() => setSelected(informe)}
