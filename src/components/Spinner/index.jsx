@@ -1,10 +1,20 @@
 import React from "react";
 import { SpinnerSpan, SpinnerWrapper } from "./style";
 
-const Spinner = ({ fullScreen = false, minHeight }) => {
+const Spinner = ({
+  fullScreen = false,
+  minHeight,
+  absolute = false,
+  customMessage = "",
+}) => {
   return (
-    <SpinnerWrapper fullScreen={fullScreen} minHeight={minHeight}>
+    <SpinnerWrapper
+      absolute={absolute}
+      fullScreen={fullScreen}
+      minHeight={minHeight}
+    >
       <SpinnerSpan />
+      {customMessage}
     </SpinnerWrapper>
   );
 };

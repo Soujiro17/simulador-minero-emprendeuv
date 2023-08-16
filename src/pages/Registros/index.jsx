@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { DateTime } from "luxon";
 import HeaderLayout from "../../layouts/HeaderLayout";
 import { Container, RegistrosContainer, RegistrosTitle } from "./style";
-import Card from "../../components/Card";
 import Registro from "../../components/Registro";
 import RegistroDetails from "../../components/RegistroDetails";
 import Spinner from "../../components/Spinner";
@@ -14,6 +13,7 @@ import Title from "../../shared/Title";
 import Text from "../../shared/Text";
 import Button from "../../shared/Button";
 import { CardHeader, SimulacionCard } from "../CrearSimulacion/style";
+import useStorage from "../../hooks/useStorage";
 
 const Registros = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,21 +21,7 @@ const Registros = () => {
 
   const handleIsOpen = () => setIsOpen((prev) => !prev);
 
-  // const { data } = useQuery(["simulaciones"], getSimulaciones);
-
-  const data = {
-    informes: [
-      {
-        _id: 1,
-        camiones: 7,
-        palas: 10,
-        stock_piles: 5,
-        simTime: 350000,
-        createdAt: DateTime.now().toISO(),
-        metricas: {},
-      },
-    ],
-  };
+  const { registros } = useStorage();
 
   const isLoading = false;
 
@@ -148,26 +134,29 @@ const Registros = () => {
                   </Button>
                 </div>
                 <RegistrosContainer>
-                  {data?.informes?.length > 0 ? (
-                    data?.informes
+                  {registros?.length > 0 ? (
+                    registros
                       ?.sort((a, b) =>
                         DateTime.fromISO(a.createdAt) <
                         DateTime.fromISO(b.createdAt)
                           ? 1
                           : -1,
                       )
-                      .map((informe) => (
-                        <Registro
-                          key={informe._id}
-                          camiones={informe.camiones}
-                          palas={informe.palas}
-                          stockPiles={informe.stock_piles}
-                          simTime={informe.simTime}
-                          date={informe.createdAt}
-                          metricas={informe.metricas}
-                          onClick={() => setSelected(informe)}
-                        />
-                      ))
+                      .map((informe) => {
+                        const { parametros, id, isLoading, createdAt } =
+                          informe;
+
+                        return (
+                          <Registro
+                            key={id}
+                            parametros={parametros}
+                            isLoading={isLoading}
+                            date={createdAt}
+                            id={id}
+                            onClick={() => setSelected(informe)}
+                          />
+                        );
+                      })
                   ) : (
                     <p style={{ textAlign: "center" }}>
                       No hay registros que mostrar

@@ -1,5 +1,6 @@
 import React from "react";
 import { DateTime } from "luxon";
+import { toast } from "react-toastify";
 import Img from "../../shared/Img";
 import {
   BasuraImg,
@@ -8,12 +9,29 @@ import {
   DataGroup,
   Fecha,
 } from "./style";
+import useStorage from "../../hooks/useStorage";
+import Spinner from "../Spinner";
 
-const Registro = ({ camiones, palas, stockPiles, simTime, date, onClick }) => {
-  const onClickDelete = () => console.log("Deleted");
+const Registro = ({ parametros, isLoading, date, id, onClick }) => {
+  const { deleteRegistro } = useStorage();
+
+  const onClickDelete = () => {
+    if (isLoading) return null;
+
+    if (!window.confirm("¿Deseas eliminar el registro?")) return null;
+
+    deleteRegistro(id);
+
+    toast.success("Simulación eliminada con éxito");
+
+    return null;
+  };
 
   return (
     <CardWrapper>
+      {isLoading && (
+        <Spinner absolute customMessage="Realizando simulación..." />
+      )}
       <BasuraImg onClick={onClickDelete} src="/basurero.png" alt="basurero" />
       <CardRegister onClick={onClick}>
         <DataGroup>
@@ -24,11 +42,11 @@ const Registro = ({ camiones, palas, stockPiles, simTime, date, onClick }) => {
             src="/camion.png"
             alt="camiones"
           />
-          x{camiones}
+          x{parametros.camiones}
         </DataGroup>
         <DataGroup>
           <Img contain height="70px" width="100px" src="/pala.png" alt="pala" />
-          x {palas}
+          x {parametros.palas}
         </DataGroup>
         <DataGroup>
           <Img
@@ -38,7 +56,7 @@ const Registro = ({ camiones, palas, stockPiles, simTime, date, onClick }) => {
             src="/stockpile.png"
             alt="stockpile"
           />
-          x{stockPiles}
+          x{parametros.stockPiles}
         </DataGroup>
         <DataGroup>
           <Img
@@ -48,7 +66,7 @@ const Registro = ({ camiones, palas, stockPiles, simTime, date, onClick }) => {
             src="/reloj.png"
             alt="stockpile"
           />
-          {parseFloat(Number(simTime) / 60).toFixed(2)} min
+          {parseFloat(Number(parametros.tiempoSimulacion) / 60).toFixed(2)} min
         </DataGroup>
         <Fecha>
           <span

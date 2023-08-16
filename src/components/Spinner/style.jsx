@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import styled, { css, keyframes } from "styled-components";
 import colors from "../../constants/colors";
 
@@ -20,6 +21,17 @@ const spinnerFullScreen = css`
   z-index: 1000;
 `;
 
+const spinnerAbsolute = css`
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0.7;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+`;
+
 const scaleUp = keyframes`
   0% { transform: translate(-50%, -50%) scale(0) }
   60% , 100% { transform: translate(-50%, -50%)  scale(1)}
@@ -36,8 +48,15 @@ export const SpinnerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
   min-height: ${(props) => props.minHeight};
-  ${(props) => (props.fullScreen ? spinnerFullScreen : "")};
+  ${(props) =>
+    props.fullScreen
+      ? spinnerFullScreen
+      : props.absolute
+      ? spinnerAbsolute
+      : ""};
 `;
 
 export const SpinnerSpan = styled.span`

@@ -7,6 +7,8 @@ export const CardWrapper = styled(CardContainer)`
   background-color: unset;
 `;
 
+export const isLoadingContainer = styled.div``;
+
 export const CardRegister = styled(CardContainer)`
   height: 170px;
   padding-left: 50px;
