@@ -66,7 +66,7 @@ const Registro = ({ parametros, isLoading, date, id, onClick }) => {
             src="/reloj.png"
             alt="stockpile"
           />
-          {parseFloat(Number(parametros.tiempoSimulacion) / 60).toFixed(2)} min
+          {parseFloat(Number(parametros.tiempoSimulacion)).toFixed(2)} min
         </DataGroup>
         <Fecha>
           <span

@@ -1,78 +1,92 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable radix */
-// import Chart from "../Chart";
+import Chart from "../Chart";
 import Modal from "../Modal";
-// import {
-//   Container,
-//   LineSeparator,
-//   RecomendacionesText,
-//   Resultados,
-//   ResumenContainer,
-// } from "./style";
+import {
+  Container,
+  LineSeparator,
+  RecomendacionesText,
+  Resultados,
+  ResumenContainer,
+} from "./style";
 
-const RegistroDetails = ({
-  setSelected,
-  // selected
-}) => {
-  // console.log(selected);
-  // let recomendacion = "";
-  // let icon = "";
-  // let showReverse = false;
+const RegistroDetails = ({ setSelected, selected }) => {
+  const { parametros, promedios, camiones, palas } = selected;
+  const { camiones: camionesPromedios, palas: palasPromedios } = promedios;
 
-  // if (uP >= 80 && uC >= 80) {
-  //   recomendacion =
-  //     "La elección de camiones y palas es eficiente. Intenta una simulación similar pero con +3 camiones para ver si logras un rendimiento mayor.";
-  //   icon = "😊";
-  // } else if (uP < 80 && uC > 80) {
-  //   recomendacion =
-  //     "Se recomienda utilizar más camiones porque el trabajo de las palas no está siendo tan eficiente como debería.";
-  //   icon = "🫤";
-  //   showReverse = true;
-  // } else if (uP > 80 && uC < 80) {
-  //   recomendacion =
-  //     "Se recomienda utilizar más palas porque el rendimiento de éstas está siendo saturado por la cantidad de camiones que hay.";
-  //   icon = "😞";
-  // }
+  let recomendacion = "";
+  let icon = "";
+  let showReverse = false;
+
+  const palasEstimadas = Math.ceil(parametros.camiones / 15);
+  const camionesEstimados = parametros.palas * 15;
+
+  if (palasPromedios.u >= 80 && camionesPromedios.u >= 80) {
+    recomendacion =
+      "La elección de camiones y palas es eficiente. Intenta una simulación similar pero con +3 camiones para ver si logras un rendimiento mayor.";
+    icon = "😊";
+  } else if (palasPromedios.u < 80 && camionesPromedios.u > 80) {
+    recomendacion =
+      "Se recomienda utilizar más camiones porque el trabajo de las palas no está siendo tan eficiente como debería.";
+    icon = "🫤";
+    showReverse = true;
+  } else if (palasPromedios.u > 80 && camionesPromedios.u < 80) {
+    recomendacion =
+      "Se recomienda utilizar más palas porque el rendimiento de éstas está siendo saturado por la cantidad de camiones que hay.";
+    icon = "😞";
+  }
 
   return (
     <Modal height="760px" width="70%" setSelected={setSelected}>
-      {/* <ResumenContainer>
+      <ResumenContainer>
         <RecomendacionesText>Resúmen</RecomendacionesText>
         <Resultados>
           <li>
-            Camiones utilizados: <strong>{camiones}</strong>
+            Camiones utilizados: <strong>{parametros.camiones}</strong>
           </li>
           <li>
-            Palas utilizadas: <strong>{palas}</strong>
+            Palas utilizadas: <strong>{parametros.palas}</strong>
           </li>
           <li>
             Utilización promedio de camiones:{" "}
-            <strong>{uC > 100 ? 100 : uC}%</strong>
+            <strong>
+              {camionesPromedios.u > 100 ? 100 : camionesPromedios.u}%
+            </strong>
           </li>
           <li>
-            Promedio utilización palas: <strong>{uP > 100 ? 100 : uP}%</strong>
+            Promedio utilización palas:{" "}
+            <strong>{palasPromedios.u > 100 ? 100 : palasPromedios.u}%</strong>
           </li>
           <li>
-            Toneladas por turno promedio camiones: <strong>{tonsC}</strong>
+            Toneladas por turno promedio camiones:{" "}
+            <strong>{camionesPromedios.tons}</strong>
           </li>
           <li>
-            Toneladas por turno promedio palas: <strong>{tonsP}</strong>
+            Toneladas por turno promedio palas:{" "}
+            <strong>{camionesPromedios.tons}</strong>
           </li>
           <li>
             Tiempo operativo promedio camiones:{" "}
-            <strong>{parseFloat(toC / 60).toFixed(2)} min</strong>
+            <strong>
+              {parseFloat(camionesPromedios.to / 60).toFixed(2)} min
+            </strong>
           </li>
           <li>
             Tiempo operativo promedio palas:{" "}
-            <strong>{parseFloat(toP / 60).toFixed(2)} min</strong>
+            <strong>{parseFloat(palasPromedios.to / 60).toFixed(2)} min</strong>
           </li>
           <li>
             Tiempo demoras promedio camiones:{" "}
-            <strong>{parseFloat(tdoC / 60).toFixed(2)} min</strong>
+            <strong>
+              {parseFloat(camionesPromedios.tdo / 60).toFixed(2)} min
+            </strong>
           </li>
           <li>
             Tiempo demoras promedio palas:{" "}
-            <strong>{parseFloat(tdoP / 60).toFixed(2)} min</strong>
+            <strong>
+              {parseFloat(palasPromedios.tdo / 60).toFixed(2)} min
+            </strong>
           </li>
         </Resultados>
         <RecomendacionesText>Recomendaciones</RecomendacionesText>
@@ -82,8 +96,8 @@ const RegistroDetails = ({
             <strong>
               {showReverse
                 ? `
-                * Para una flota de ${palas} palas se recomiendan ${camionesEstimados} camiones`
-                : `* Para una flota de ${camiones} camiones se recomiendan ${palasEstimadas} palas`}
+                * Para una flota de ${parametros.palas} palas se recomiendan ${camionesEstimados} camiones`
+                : `* Para una flota de ${parametros.camiones} camiones se recomiendan ${palasEstimadas} palas`}
             </strong>
           </p>
           <h1 style={{ fontSize: "calc(1.2rem + 4vw)", margin: "0" }}>
@@ -95,8 +109,11 @@ const RegistroDetails = ({
         <Chart
           id="1"
           type="bar"
-          labels={parsedData.camiones.nombres}
-          datasets={[parsedData.camiones.u, parsedData.palas.u]}
+          labels={camiones.map((camion) => camion.nombre)}
+          datasets={[
+            camiones.map((camion) => camion.u),
+            palas.map((pala) => pala.u),
+          ]}
           datasetLabels={["Camiones", "Palas"]}
           disableDatalabels
           title="Utilización por maquinaria (%/N)"
@@ -111,11 +128,11 @@ const RegistroDetails = ({
         <Chart
           id="2"
           type="bar"
-          labels={Array(camiones)
+          labels={Array(parametros.camiones)
             .fill()
             .map((_, index) => index + 1)}
           datasets={[
-            parsedData.camiones.tons.map((ton) => ton.toLocaleString("es")),
+            camiones.map((camion) => parseFloat(camion.tons).toFixed(2)),
           ]}
           datasetLabels={["Camiones"]}
           title="Toneladas turno por cantidad de camiones (T/camiones)"
@@ -127,7 +144,7 @@ const RegistroDetails = ({
         />
         <LineSeparator />
         <Chart
-          labels={Array(camiones)
+          labels={Array(parametros.camiones)
             .fill()
             .map((_, index) => index + 1)}
           id="3"
@@ -142,12 +159,12 @@ const RegistroDetails = ({
           formater={(value) => {
             return `${value > 100 ? 100 : value}%`;
           }}
-          datasets={[parsedData.camiones.fq]}
+          datasets={[camiones.map((camion) => camion.fq)]}
           datasetLabels={["Camiones"]}
         />
         <LineSeparator />
         <Chart
-          labels={Array(camiones)
+          labels={Array(parametros.camiones)
             .fill()
             .map((_, index) => index + 1)}
           id="4"
@@ -155,35 +172,13 @@ const RegistroDetails = ({
           title="Tiempo de demoras de camiones (min)"
           yLabel="Tiempo de demoras (min)"
           xLabel="Camiones"
-          datasets={[
-            parsedData.camiones.tdo.map((val) =>
-              parseFloat(val / 60)
-                .toFixed(2)
-                .toLocaleString("es-CL"),
-            ),
-          ]}
+          datasets={[camiones.map((camion) => camion.tdo)]}
           datasetLabels={["Camiones"]}
           categoryPercentage={0.8}
           barPercentage={0.5}
           minY={0}
         />
-        <LineSeparator />
-        <Chart
-          labels={colaInfo.tiempo}
-          id="4"
-          type="line"
-          title="Tamaño de colas por minuto"
-          yLabel="Tamaño de cola"
-          xLabel="Tiempo (min)"
-          datasets={[colaInfo.cola]} // aquí tengo que ver que hacer
-          disableDatalabels
-          datasetLabels={colaInfo.id}
-          categoryPercentage={0.8}
-          disableRadius
-          barPercentage={0.5}
-          minY={0}
-        />
-      </Container> */}
+      </Container>
     </Modal>
   );
 };

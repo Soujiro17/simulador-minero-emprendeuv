@@ -10,6 +10,7 @@ import StorageProvider from "./contexts/StorageContext";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      retry: 2,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     },

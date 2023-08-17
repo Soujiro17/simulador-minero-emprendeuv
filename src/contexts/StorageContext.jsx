@@ -76,6 +76,9 @@ export default function StorageProvider({ children }) {
         })),
       );
     },
+    onError: () => {
+      setIsLoading(false);
+    },
   });
 
   if (isLoading) return <Spinner />;
